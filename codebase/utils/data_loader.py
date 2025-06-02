@@ -20,6 +20,10 @@ def load_data(args):
         train_loader, loc_max, loc_min = load_netsim_data(
             batch_size=args.batch_size_multiGPU, datadir=args.datadir
         )
+    elif "sep" in args.suffix:
+        train_loader, loc_max, loc_min = load_sep_data(
+            batch_size=args.batch_size_multiGPU, datadir=args.datadir
+        )
     elif "springs" in args.suffix:
         (
             train_loader,
@@ -288,6 +292,7 @@ def load_netsim_data(batch_size=1, datadir="data"):
         ld = np.load(os.path.join(datadir, "netsim", fileName))
         loc_train[idx] = torch.FloatTensor(ld["X_np"])
         edges_train[idx] = torch.LongTensor(ld["Gref"])
+        
 
     # [num_sims, num_atoms, num_timesteps, num_dims]
     loc_train = loc_train.unsqueeze(-1)
@@ -303,6 +308,47 @@ def load_netsim_data(batch_size=1, datadir="data"):
     edges_train = torch.reshape(edges_train, [-1, num_atoms ** 2])
     edges_train = (edges_train + 1) // 2
     edges_train = edges_train[:, off_diag_idx]
+    
+    train_data = TensorDataset(loc_train, edges_train)
+
+    train_data_loader = DataLoader(
+        train_data, batch_size=batch_size, shuffle=True, num_workers=8
+    )
+
+    return (train_data_loader, loc_max, loc_min)
+
+def load_sep_data(batch_size=1, datadir="data"):
+    from glob import glob
+    import pandas as pd
+    print("Loading data from {}".format(datadir))
+    g = os.path.join(datadir, "stox", "*.csv")
+    
+    l = glob(g)
+    loc_train = torch.zeros((len(l), 5, 3019))
+    
+    for i in range(len(l)):
+        df = pd.read_csv(l[i])
+        df = df.drop(columns=["Name", "Date"])
+        df = (df-df.min())/(df.max()-df.min())
+        mat = df.to_numpy()
+        tens = torch.Tensor(mat)
+        tens = tens.reshape((5, 3019))
+        loc_train[i] = tens
+
+    loc_train = loc_train.unsqueeze(-1)
+
+    edges_train = torch.ones((len(l), 5, 5))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+    
+    off_diag_idx = get_off_diag_idx(5)
+    edges_train = torch.reshape(edges_train, [-1, 5 ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    print(edges_train.shape)
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
 
     train_data = TensorDataset(loc_train, edges_train)
 

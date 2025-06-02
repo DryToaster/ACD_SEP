@@ -184,7 +184,7 @@ def forward_pass_and_eval(
     edges = utils.gumbel_softmax(logits, tau=args.temp, hard=hard)
     prob = utils.my_softmax(logits, -1)
 
-    target = data_decoder[:, :, 1:, :]
+    target = data_decoder[:, :, 1:]
 
     #################### DECODER ####################
     if args.decoder == "rnn":

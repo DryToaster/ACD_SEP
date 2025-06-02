@@ -23,10 +23,14 @@ def train():
         for batch_idx, minibatch in enumerate(train_loader):
 
             data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
+            #                                                                                                       DELETE ME
+            print(data)
+            print(relations)
+            print(temperatures)
 
             optimizer.zero_grad()
 
-            losses, _, _, _ = forward_pass_and_eval.forward_pass_and_eval(
+            losses, _, _, edges = forward_pass_and_eval.forward_pass_and_eval(
                 args,
                 encoder,
                 decoder,
@@ -39,9 +43,8 @@ def train():
                 log_prior=log_prior,
                 temperatures=temperatures,
             )
-
+            
             loss = losses["loss"]
-
             loss.backward()
             optimizer.step()
 
@@ -93,7 +96,7 @@ def val(epoch):
         data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
 
         with torch.no_grad():
-            losses, _, _, _ = forward_pass_and_eval.forward_pass_and_eval(
+            losses, _, _, edges = forward_pass_and_eval.forward_pass_and_eval(
                 args,
                 encoder,
                 decoder,
@@ -107,6 +110,8 @@ def val(epoch):
                 testing=True,
                 temperatures=temperatures,
             )
+        if batch_idx == 0:
+                np.savez("edges_cnn_netsim.npz", edges.cpu().detach().numpy())
 
         val_losses = utils.append_losses(val_losses, losses)
 
@@ -182,6 +187,7 @@ def test(encoder, decoder, epoch):
 if __name__ == "__main__":
 
     args = arg_parser.parse_args()
+    print(args.save_folder)
     logs = logger.Logger(args)
 
     if args.GPU_to_use is not None:

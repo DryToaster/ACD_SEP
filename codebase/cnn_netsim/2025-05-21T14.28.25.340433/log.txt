@@ -1,0 +1,123 @@
+Namespace(seed=42, GPU_to_use=0, epochs=80, batch_size=128, lr=0.0005, lr_decay=200, gamma=0.5, training_samples=0, test_samples=0, prediction_steps=10, encoder_hidden=256, decoder_hidden=256, encoder='cnn', decoder='mlp', prior=1, edge_types=2, dont_use_encoder=False, lr_z=0.1, global_temp=False, load_temperatures=False, alpha=2, num_cats=3, unobserved=0, model_unobserved=0, dont_shuffle_unobserved=False, teacher_forcing=0, suffix='netsim', timesteps=200, num_atoms=15, dims=1, datadir='./data', save_folder='cnn_netsim', expername='', sym_save_folder='../logs', load_folder='', test_time_adapt=False, lr_logits=0.01, num_tta_steps=100, dont_skip_first=True, temp=0.5, hard=False, no_validate=True, no_cuda=False, var=5e-07, encoder_dropout=0.0, decoder_dropout=0.0, no_factor=False, test=False, device=device(type='cuda', index=0), cuda=True, factor=True, validate=False, shuffle_unobserved=True, skip_first=False, use_encoder=True, time='2025-05-21T14:28:25.340433', num_GPU=1, batch_size_multiGPU=128, log_path='cnn_netsim\\2025-05-21T14.28.25.340433')
+Using GPU #0
+DataParallel(
+  (module): CNNEncoder(
+    (cnn): CNN(
+      (pool): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+      (conv1): Conv1d(2, 256, kernel_size=(5,), stride=(1,))
+      (bn1): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv2): Conv1d(256, 256, kernel_size=(5,), stride=(1,))
+      (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (conv_predict): Conv1d(256, 256, kernel_size=(1,), stride=(1,))
+      (conv_attention): Conv1d(256, 1, kernel_size=(1,), stride=(1,))
+    )
+    (mlp1): MLP(
+      (fc1): Linear(in_features=256, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp2): MLP(
+      (fc1): Linear(in_features=256, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp3): MLP(
+      (fc1): Linear(in_features=768, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (fc_out): Linear(in_features=256, out_features=2, bias=True)
+  )
+)
+DataParallel(
+  (module): MLPDecoder(
+    (msg_fc1): ModuleList(
+      (0-1): 2 x Linear(in_features=2, out_features=256, bias=True)
+    )
+    (msg_fc2): ModuleList(
+      (0-1): 2 x Linear(in_features=256, out_features=256, bias=True)
+    )
+    (out_fc1): Linear(in_features=257, out_features=256, bias=True)
+    (out_fc2): Linear(in_features=256, out_features=256, bias=True)
+    (out_fc3): Linear(in_features=256, out_features=1, bias=True)
+  )
+)
+0 train	 	loss_kl -7.1391463280 	acc 0.5019047619 	auroc 0.5303703704 	loss_nll 18651752.0000000000 	loss_mse 0.0937273949 	loss 18651744.0000000000 	inference time 0.3326034546 	time: 5.4564s 	
+1 train	 	loss_kl -4.9214673042 	acc 0.4980952381 	auroc 0.5300347222 	loss_nll 27208052.0000000000 	loss_mse 0.1367238760 	loss 27208048.0000000000 	inference time 0.3027775288 	time: 5.3102s 	
+2 train	 	loss_kl -3.2741420269 	acc 0.5257142857 	auroc 0.5258796296 	loss_nll 17336008.0000000000 	loss_mse 0.0871156156 	loss 17336004.0000000000 	inference time 0.2481136322 	time: 5.3292s 	
+3 train	 	loss_kl -2.8226735592 	acc 0.5028571429 	auroc 0.5247280093 	loss_nll 21606810.0000000000 	loss_mse 0.1085769311 	loss 21606808.0000000000 	inference time 0.2286427021 	time: 5.2609s 	
+4 train	 	loss_kl -2.5193867683 	acc 0.4980952381 	auroc 0.5282407407 	loss_nll 18378612.0000000000 	loss_mse 0.0923548266 	loss 18378610.0000000000 	inference time 0.2072598934 	time: 5.2383s 	
+5 train	 	loss_kl -2.4077904224 	acc 0.5133333333 	auroc 0.5397222222 	loss_nll 18348712.0000000000 	loss_mse 0.0922045782 	loss 18348710.0000000000 	inference time 0.3016214371 	time: 5.2754s 	
+6 train	 	loss_kl -2.1443669796 	acc 0.5247619048 	auroc 0.5480671296 	loss_nll 16213764.0000000000 	loss_mse 0.0814762041 	loss 16213762.0000000000 	inference time 0.3644323349 	time: 5.3845s 	
+7 train	 	loss_kl -1.9465955496 	acc 0.5238095238 	auroc 0.5446296296 	loss_nll 14103069.0000000000 	loss_mse 0.0708696842 	loss 14103067.0000000000 	inference time 0.4111673832 	time: 5.3920s 	
+8 train	 	loss_kl -1.7730389833 	acc 0.5161904762 	auroc 0.5418981481 	loss_nll 13946119.0000000000 	loss_mse 0.0700810030 	loss 13946117.0000000000 	inference time 0.3099682331 	time: 5.3862s 	
+9 train	 	loss_kl -1.8766711950 	acc 0.5266666667 	auroc 0.5419560185 	loss_nll 13608989.0000000000 	loss_mse 0.0683868751 	loss 13608987.0000000000 	inference time 0.3483905792 	time: 5.4092s 	
+10 train	 	loss_kl -1.9349060059 	acc 0.5200000000 	auroc 0.5392881944 	loss_nll 13079716.0000000000 	loss_mse 0.0657272115 	loss 13079714.0000000000 	inference time 0.2849168777 	time: 5.4357s 	
+11 train	 	loss_kl -1.8535662889 	acc 0.5266666667 	auroc 0.5406886574 	loss_nll 12957548.0000000000 	loss_mse 0.0651132986 	loss 12957546.0000000000 	inference time 0.2534220219 	time: 5.3650s 	
+12 train	 	loss_kl -1.6732676029 	acc 0.5180952381 	auroc 0.5442592593 	loss_nll 13481375.0000000000 	loss_mse 0.0677455962 	loss 13481373.0000000000 	inference time 0.3001458645 	time: 5.3263s 	
+13 train	 	loss_kl -1.6388043165 	acc 0.4952380952 	auroc 0.5447395833 	loss_nll 13505710.0000000000 	loss_mse 0.0678678900 	loss 13505708.0000000000 	inference time 0.2879188061 	time: 5.3806s 	
+14 train	 	loss_kl -1.5367465019 	acc 0.4733333333 	auroc 0.5485069444 	loss_nll 13072368.0000000000 	loss_mse 0.0656902865 	loss 13072366.0000000000 	inference time 0.3065934181 	time: 5.3244s 	
+15 train	 	loss_kl -1.3784973621 	acc 0.4942857143 	auroc 0.5442129630 	loss_nll 13095108.0000000000 	loss_mse 0.0658045560 	loss 13095107.0000000000 	inference time 0.2864556313 	time: 5.3574s 	
+16 train	 	loss_kl -1.2391558886 	acc 0.4980952381 	auroc 0.5524016204 	loss_nll 13095755.0000000000 	loss_mse 0.0658078119 	loss 13095754.0000000000 	inference time 0.2137763500 	time: 5.3063s 	
+17 train	 	loss_kl -1.1755622625 	acc 0.4980952381 	auroc 0.5568923611 	loss_nll 12930794.0000000000 	loss_mse 0.0649788678 	loss 12930793.0000000000 	inference time 0.2727351189 	time: 5.3212s 	
+18 train	 	loss_kl -1.1920435429 	acc 0.4895238095 	auroc 0.5522164352 	loss_nll 12981457.0000000000 	loss_mse 0.0652334392 	loss 12981456.0000000000 	inference time 0.2373645306 	time: 5.3139s 	
+19 train	 	loss_kl -1.2244907618 	acc 0.4914285714 	auroc 0.5441840278 	loss_nll 13046265.0000000000 	loss_mse 0.0655591190 	loss 13046264.0000000000 	inference time 0.4020187855 	time: 5.5048s 	
+20 train	 	loss_kl -1.3449436426 	acc 0.4971428571 	auroc 0.5420428241 	loss_nll 12928821.0000000000 	loss_mse 0.0649689510 	loss 12928820.0000000000 	inference time 0.3795454502 	time: 5.4794s 	
+21 train	 	loss_kl -1.3991080523 	acc 0.4904761905 	auroc 0.5426157407 	loss_nll 12926268.0000000000 	loss_mse 0.0649561211 	loss 12926267.0000000000 	inference time 0.3941085339 	time: 5.4677s 	
+22 train	 	loss_kl -1.3926779032 	acc 0.4933333333 	auroc 0.5362268519 	loss_nll 12944130.0000000000 	loss_mse 0.0650458783 	loss 12944129.0000000000 	inference time 0.4379982948 	time: 5.5612s 	
+23 train	 	loss_kl -1.2842704058 	acc 0.4923809524 	auroc 0.5332465278 	loss_nll 12862542.0000000000 	loss_mse 0.0646358877 	loss 12862541.0000000000 	inference time 0.2599968910 	time: 5.4226s 	
+24 train	 	loss_kl -1.2913100719 	acc 0.5019047619 	auroc 0.5304745370 	loss_nll 12834765.0000000000 	loss_mse 0.0644963086 	loss 12834764.0000000000 	inference time 0.2819166183 	time: 5.4214s 	
+25 train	 	loss_kl -1.2216526270 	acc 0.4990476190 	auroc 0.5294270833 	loss_nll 12873080.0000000000 	loss_mse 0.0646888390 	loss 12873079.0000000000 	inference time 0.2514288425 	time: 5.6525s 	
+26 train	 	loss_kl -1.1478723288 	acc 0.5028571429 	auroc 0.5278877315 	loss_nll 12854965.0000000000 	loss_mse 0.0645978153 	loss 12854964.0000000000 	inference time 0.3510973454 	time: 5.5671s 	
+27 train	 	loss_kl -1.1761956215 	acc 0.5028571429 	auroc 0.5286053241 	loss_nll 12831647.0000000000 	loss_mse 0.0644806400 	loss 12831646.0000000000 	inference time 0.2627038956 	time: 5.3917s 	
+28 train	 	loss_kl -1.2181168795 	acc 0.5095238095 	auroc 0.5316956019 	loss_nll 12857351.0000000000 	loss_mse 0.0646098033 	loss 12857350.0000000000 	inference time 0.3087396622 	time: 5.4647s 	
+29 train	 	loss_kl -1.2021129131 	acc 0.5038095238 	auroc 0.5328993056 	loss_nll 12866125.0000000000 	loss_mse 0.0646538958 	loss 12866124.0000000000 	inference time 0.2850425243 	time: 5.5598s 	
+30 train	 	loss_kl -1.1632940769 	acc 0.5009523810 	auroc 0.5324942130 	loss_nll 12838320.0000000000 	loss_mse 0.0645141676 	loss 12838319.0000000000 	inference time 0.2612650394 	time: 5.4416s 	
+31 train	 	loss_kl -1.1019181013 	acc 0.5038095238 	auroc 0.5320370370 	loss_nll 12843426.0000000000 	loss_mse 0.0645398274 	loss 12843425.0000000000 	inference time 0.3413190842 	time: 5.5155s 	
+32 train	 	loss_kl -1.0822384357 	acc 0.5047619048 	auroc 0.5342997685 	loss_nll 12855272.0000000000 	loss_mse 0.0645993575 	loss 12855271.0000000000 	inference time 0.3016276360 	time: 5.4233s 	
+33 train	 	loss_kl -1.0672591925 	acc 0.5038095238 	auroc 0.5352835648 	loss_nll 12841370.0000000000 	loss_mse 0.0645294935 	loss 12841369.0000000000 	inference time 0.2631902695 	time: 5.3743s 	
+34 train	 	loss_kl -1.0511440039 	acc 0.5085714286 	auroc 0.5358622685 	loss_nll 12828424.0000000000 	loss_mse 0.0644644424 	loss 12828423.0000000000 	inference time 0.4357385635 	time: 5.5355s 	
+35 train	 	loss_kl -1.0088531971 	acc 0.5076190476 	auroc 0.5366493056 	loss_nll 12837196.0000000000 	loss_mse 0.0645085275 	loss 12837195.0000000000 	inference time 0.3025162220 	time: 5.3264s 	
+36 train	 	loss_kl -0.9802647233 	acc 0.5066666667 	auroc 0.5372685185 	loss_nll 12834801.0000000000 	loss_mse 0.0644964874 	loss 12834800.0000000000 	inference time 0.2915797234 	time: 5.4064s 	
+37 train	 	loss_kl -0.9094234705 	acc 0.5057142857 	auroc 0.5350520833 	loss_nll 12820682.0000000000 	loss_mse 0.0644255355 	loss 12820681.0000000000 	inference time 0.3327345848 	time: 5.4218s 	
+38 train	 	loss_kl -0.8828184009 	acc 0.5009523810 	auroc 0.5354340278 	loss_nll 12824668.0000000000 	loss_mse 0.0644455701 	loss 12824667.0000000000 	inference time 0.3575208187 	time: 5.3772s 	
+39 train	 	loss_kl -0.8630035520 	acc 0.4980952381 	auroc 0.5338657407 	loss_nll 12825697.0000000000 	loss_mse 0.0644507334 	loss 12825696.0000000000 	inference time 0.3950319290 	time: 5.4985s 	
+40 train	 	loss_kl -0.8517201543 	acc 0.5000000000 	auroc 0.5336805556 	loss_nll 12815492.0000000000 	loss_mse 0.0643994510 	loss 12815491.0000000000 	inference time 0.2478752136 	time: 5.3071s 	
+41 train	 	loss_kl -0.8440802097 	acc 0.5000000000 	auroc 0.5335821759 	loss_nll 12815362.0000000000 	loss_mse 0.0643988028 	loss 12815361.0000000000 	inference time 0.3779180050 	time: 5.4825s 	
+42 train	 	loss_kl -0.8528246284 	acc 0.4980952381 	auroc 0.5347048611 	loss_nll 12816654.0000000000 	loss_mse 0.0644052923 	loss 12816653.0000000000 	inference time 0.3111307621 	time: 5.3084s 	
+43 train	 	loss_kl -0.8463010788 	acc 0.4933333333 	auroc 0.5344386574 	loss_nll 12808401.0000000000 	loss_mse 0.0643638223 	loss 12808400.0000000000 	inference time 0.4021418095 	time: 5.4572s 	
+44 train	 	loss_kl -0.8281105757 	acc 0.4904761905 	auroc 0.5340335648 	loss_nll 12810522.0000000000 	loss_mse 0.0643744767 	loss 12810521.0000000000 	inference time 0.3955154419 	time: 5.4828s 	
+45 train	 	loss_kl -0.8166125417 	acc 0.4895238095 	auroc 0.5335821759 	loss_nll 12809910.0000000000 	loss_mse 0.0643714070 	loss 12809909.0000000000 	inference time 0.3893558979 	time: 5.5041s 	
+46 train	 	loss_kl -0.7766852379 	acc 0.4857142857 	auroc 0.5338888889 	loss_nll 12806585.0000000000 	loss_mse 0.0643547028 	loss 12806584.0000000000 	inference time 0.3633406162 	time: 5.4395s 	
+47 train	 	loss_kl -0.7686188221 	acc 0.4857142857 	auroc 0.5325983796 	loss_nll 12808946.0000000000 	loss_mse 0.0643665567 	loss 12808945.0000000000 	inference time 0.4112706184 	time: 5.4423s 	
+48 train	 	loss_kl -0.7635419965 	acc 0.4866666667 	auroc 0.5316724537 	loss_nll 12805900.0000000000 	loss_mse 0.0643512532 	loss 12805899.0000000000 	inference time 0.3547382355 	time: 5.4004s 	
+49 train	 	loss_kl -0.7601092458 	acc 0.4876190476 	auroc 0.5321701389 	loss_nll 12805146.0000000000 	loss_mse 0.0643474609 	loss 12805145.0000000000 	inference time 0.3641357422 	time: 5.3679s 	
+50 train	 	loss_kl -0.7682176828 	acc 0.4857142857 	auroc 0.5333912037 	loss_nll 12806230.0000000000 	loss_mse 0.0643529147 	loss 12806229.0000000000 	inference time 0.3634355068 	time: 5.4165s 	
+51 train	 	loss_kl -0.7849858403 	acc 0.4876190476 	auroc 0.5339699074 	loss_nll 12802832.0000000000 	loss_mse 0.0643358305 	loss 12802831.0000000000 	inference time 0.3379976749 	time: 5.4225s 	
+52 train	 	loss_kl -0.7857207656 	acc 0.4923809524 	auroc 0.5349942130 	loss_nll 12802700.0000000000 	loss_mse 0.0643351749 	loss 12802699.0000000000 	inference time 0.4011671543 	time: 5.4048s 	
+53 train	 	loss_kl -0.7757545710 	acc 0.4933333333 	auroc 0.5354108796 	loss_nll 12800081.0000000000 	loss_mse 0.0643220171 	loss 12800080.0000000000 	inference time 0.3386549950 	time: 5.4145s 	
+54 train	 	loss_kl -0.7710443139 	acc 0.4933333333 	auroc 0.5351736111 	loss_nll 12797901.0000000000 	loss_mse 0.0643110573 	loss 12797900.0000000000 	inference time 0.3099467754 	time: 5.3672s 	
+55 train	 	loss_kl -0.7757983804 	acc 0.4942857143 	auroc 0.5344733796 	loss_nll 12799221.0000000000 	loss_mse 0.0643176958 	loss 12799220.0000000000 	inference time 0.3046121597 	time: 5.3601s 	
+56 train	 	loss_kl -0.7851784229 	acc 0.4971428571 	auroc 0.5357291667 	loss_nll 12794764.0000000000 	loss_mse 0.0642952994 	loss 12794763.0000000000 	inference time 0.2617485523 	time: 5.3565s 	
+57 train	 	loss_kl -0.8003123403 	acc 0.5000000000 	auroc 0.5347974537 	loss_nll 12795522.0000000000 	loss_mse 0.0642990991 	loss 12795521.0000000000 	inference time 0.3957915306 	time: 5.5269s 	
+58 train	 	loss_kl -0.7787597775 	acc 0.5038095238 	auroc 0.5354629630 	loss_nll 12795776.0000000000 	loss_mse 0.0643003806 	loss 12795775.0000000000 	inference time 0.3573348522 	time: 5.3638s 	
+59 train	 	loss_kl -0.7854404449 	acc 0.5066666667 	auroc 0.5370543981 	loss_nll 12792658.0000000000 	loss_mse 0.0642847121 	loss 12792657.0000000000 	inference time 0.2251181602 	time: 5.3595s 	
+60 train	 	loss_kl -0.7879370451 	acc 0.5057142857 	auroc 0.5372858796 	loss_nll 12791948.0000000000 	loss_mse 0.0642811358 	loss 12791947.0000000000 	inference time 0.2543148994 	time: 5.2593s 	
+61 train	 	loss_kl -0.7913170457 	acc 0.5009523810 	auroc 0.5354398148 	loss_nll 12790772.0000000000 	loss_mse 0.0642752349 	loss 12790771.0000000000 	inference time 0.3010048866 	time: 5.2828s 	
+62 train	 	loss_kl -0.7926547527 	acc 0.5009523810 	auroc 0.5352141204 	loss_nll 12789663.0000000000 	loss_mse 0.0642696619 	loss 12789662.0000000000 	inference time 0.4293079376 	time: 5.5412s 	
+63 train	 	loss_kl -0.7886580825 	acc 0.5028571429 	auroc 0.5349189815 	loss_nll 12788716.0000000000 	loss_mse 0.0642649010 	loss 12788715.0000000000 	inference time 0.3097748756 	time: 5.3031s 	
+64 train	 	loss_kl -0.7853679657 	acc 0.5066666667 	auroc 0.5346932870 	loss_nll 12786490.0000000000 	loss_mse 0.0642537177 	loss 12786489.0000000000 	inference time 0.3503720760 	time: 5.4395s 	
+65 train	 	loss_kl -0.7881496549 	acc 0.5076190476 	auroc 0.5347511574 	loss_nll 12786112.0000000000 	loss_mse 0.0642518178 	loss 12786111.0000000000 	inference time 0.2298083305 	time: 5.2771s 	
+66 train	 	loss_kl -0.7832766175 	acc 0.5095238095 	auroc 0.5344097222 	loss_nll 12786060.0000000000 	loss_mse 0.0642515570 	loss 12786059.0000000000 	inference time 0.3645401001 	time: 5.4359s 	
+67 train	 	loss_kl -0.7729803920 	acc 0.5123809524 	auroc 0.5345891204 	loss_nll 12785430.0000000000 	loss_mse 0.0642483905 	loss 12785429.0000000000 	inference time 0.3555533886 	time: 5.4482s 	
+68 train	 	loss_kl -0.7838941813 	acc 0.5123809524 	auroc 0.5347974537 	loss_nll 12783345.0000000000 	loss_mse 0.0642379150 	loss 12783344.0000000000 	inference time 0.4070825577 	time: 5.4337s 	
+69 train	 	loss_kl -0.7786226869 	acc 0.5104761905 	auroc 0.5344675926 	loss_nll 12784094.0000000000 	loss_mse 0.0642416850 	loss 12784093.0000000000 	inference time 0.3544149399 	time: 5.4036s 	
+70 train	 	loss_kl -0.7724274993 	acc 0.5142857143 	auroc 0.5350694444 	loss_nll 12780814.0000000000 	loss_mse 0.0642251968 	loss 12780813.0000000000 	inference time 0.3895931244 	time: 5.4006s 	
+71 train	 	loss_kl -0.7727154493 	acc 0.5152380952 	auroc 0.5348263889 	loss_nll 12780979.0000000000 	loss_mse 0.0642260239 	loss 12780978.0000000000 	inference time 0.3637652397 	time: 5.4187s 	
+72 train	 	loss_kl -0.7668831944 	acc 0.5152380952 	auroc 0.5353587963 	loss_nll 12778265.0000000000 	loss_mse 0.0642123893 	loss 12778264.0000000000 	inference time 0.3464035988 	time: 5.3883s 	
+73 train	 	loss_kl -0.7552019358 	acc 0.5142857143 	auroc 0.5356307870 	loss_nll 12778660.0000000000 	loss_mse 0.0642143711 	loss 12778659.0000000000 	inference time 0.3101978302 	time: 5.4504s 	
+74 train	 	loss_kl -0.7469050884 	acc 0.5133333333 	auroc 0.5349594907 	loss_nll 12777985.0000000000 	loss_mse 0.0642109811 	loss 12777984.0000000000 	inference time 0.2376220226 	time: 5.3265s 	
+75 train	 	loss_kl -0.7436103225 	acc 0.5123809524 	auroc 0.5346238426 	loss_nll 12777216.0000000000 	loss_mse 0.0642071217 	loss 12777215.0000000000 	inference time 0.3363370895 	time: 5.3621s 	
+76 train	 	loss_kl -0.7409831882 	acc 0.5133333333 	auroc 0.5349652778 	loss_nll 12776409.0000000000 	loss_mse 0.0642030612 	loss 12776408.0000000000 	inference time 0.2943859100 	time: 5.3636s 	
+77 train	 	loss_kl -0.7331649661 	acc 0.5142857143 	auroc 0.5355439815 	loss_nll 12776069.0000000000 	loss_mse 0.0642013475 	loss 12776068.0000000000 	inference time 0.3083260059 	time: 5.3437s 	
+78 train	 	loss_kl -0.7366939187 	acc 0.5133333333 	auroc 0.5363252315 	loss_nll 12773294.0000000000 	loss_mse 0.0641874075 	loss 12773293.0000000000 	inference time 0.3482935429 	time: 5.3535s 	

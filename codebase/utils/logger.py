@@ -32,9 +32,10 @@ class Logger:
 
     def create_log_path(self, args, add_path_var=""):
 
-        args.log_path = os.path.join(args.save_folder, add_path_var, args.time)
+        args.log_path = os.path.join(args.save_folder, add_path_var, args.time).replace(":", ".")
 
         if not os.path.exists(args.log_path):
+            print(type(args.log_path))
             os.makedirs(args.log_path)
 
         if args.expername != "":

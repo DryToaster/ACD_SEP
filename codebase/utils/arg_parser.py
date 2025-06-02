@@ -276,6 +276,13 @@ def parse_args():
         args.no_validate = True
         args.test = False
 
+    if "sep" in args.suffix:
+        args.dims = 1
+        args.num_atoms = 5
+        args.timesteps = 3019
+        args.no_validate = True
+        args.test = False
+
     args.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     args.cuda = not args.no_cuda and torch.cuda.is_available()
     args.factor = not args.no_factor
