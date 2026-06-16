@@ -184,7 +184,7 @@ def forward_pass_and_eval(
     edges = utils.gumbel_softmax(logits, tau=args.temp, hard=hard)
     prob = utils.my_softmax(logits, -1)
 
-    target = data_decoder[:, :, 1:]
+    target = data_decoder[:, :, 1:, :]
 
     #################### DECODER ####################
     if args.decoder == "rnn":
@@ -227,9 +227,9 @@ def forward_pass_and_eval(
                 losses["observed_acc"] = utils.edge_accuracy_observed(
                     logits, relations, num_atoms=args.num_atoms
                 )
-                losses["observed_auroc"] = utils.calc_auroc_observed(
-                    prob, relations, num_atoms=args.num_atoms
-                )
+                # losses["observed_auroc"] = utils.calc_auroc_observed(
+                #     prob, relations, num_atoms=args.num_atoms
+                # )
 
     if args.global_temp:
         losses['loss_kl_temp'] = utils.kl_uniform(inferred_width, uniform_prior_width)
@@ -258,8 +258,8 @@ def forward_pass_and_eval(
     #################### MAIN LOSSES ####################
     ### latent losses ###
     losses["loss_kl"] = utils.kl_latent(args, prob, log_prior, predicted_atoms)
-    losses["acc"] = utils.edge_accuracy(logits, relations)
-    losses["auroc"] = utils.calc_auroc(prob, relations)
+    #losses["acc"] = utils.edge_accuracy(logits, relations)
+    #losses["auroc"] = utils.calc_auroc(prob, relations)
 
     ### output losses ###
     losses["loss_nll"] = utils.nll_gaussian(

@@ -17,6 +17,7 @@ def train():
     best_epoch = 0
 
     for epoch in range(args.epochs):
+        print("Starting epoch ", epoch)
         t_epoch = time.time()
         train_losses = defaultdict(list)
 
@@ -24,20 +25,23 @@ def train():
 
             data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
             #                                                                                                       DELETE ME
-            print(data)
-            print(relations)
-            print(temperatures)
+            #print(data.shape)
+            #print(rel_rec.shape)
+            #print(rel_send.shape)
 
             optimizer.zero_grad()
 
+            current_batch_size = data.size(0)
+            rel_rec_bat = rel_rec.unsqueeze(0).expand(current_batch_size, -1, -1)
+            rel_send_bat = rel_send.unsqueeze(0).expand(current_batch_size, -1, -1)
             losses, _, _, edges = forward_pass_and_eval.forward_pass_and_eval(
                 args,
                 encoder,
                 decoder,
                 data,
                 relations,
-                rel_rec,
-                rel_send,
+                rel_rec_bat,
+                rel_send_bat,
                 args.hard,
                 edge_probs=edge_probs,
                 log_prior=log_prior,
@@ -46,6 +50,11 @@ def train():
             
             loss = losses["loss"]
             loss.backward()
+            # anti-explosion clipping
+            torch.nn.utils.clip_grad_norm_(encoder.parameters(), max_norm=5.0)
+            if decoder is not None:
+                torch.nn.utils.clip_grad_norm_(decoder.parameters(), max_norm=5.0)
+
             optimizer.step()
 
             train_losses = utils.append_losses(train_losses, losses)
@@ -185,6 +194,8 @@ def test(encoder, decoder, epoch):
 
 
 if __name__ == "__main__":
+
+    torch.autograd.set_detect_anomaly(True)
 
     args = arg_parser.parse_args()
     print(args.save_folder)

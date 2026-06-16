@@ -1,0 +1,410 @@
+nohup: ignoring input
+logs
+<class 'str'>
+Namespace(seed=42, GPU_to_use=None, epochs=10000, batch_size=32, lr=0.0005, lr_decay=200, gamma=0.5, training_samples=0, test_samples=0, prediction_steps=10, encoder_hidden=256, decoder_hidden=256, encoder='mlp', decoder='mlp', prior=1, edge_types=2, dont_use_encoder=False, lr_z=0.1, global_temp=False, load_temperatures=False, alpha=2, num_cats=3, unobserved=0, model_unobserved=0, dont_shuffle_unobserved=False, teacher_forcing=0, suffix='sep', timesteps=288, num_atoms=10, dims=1, datadir='../../../SEP/src', save_folder='logs', expername='', sym_save_folder='../logs', load_folder='', test_time_adapt=False, lr_logits=0.01, num_tta_steps=100, dont_skip_first=False, temp=0.5, hard=False, no_validate=True, no_cuda=False, var=5e-07, encoder_dropout=0.0, decoder_dropout=0.0, no_factor=False, test=False, device=device(type='cuda', index=0), cuda=True, factor=True, validate=False, shuffle_unobserved=True, skip_first=True, use_encoder=True, time='2026-03-30T14:07:13.612996', num_GPU=4, batch_size_multiGPU=128, log_path='logs/2026-03-30T14.07.13.612996')
+Loading Data From ../../../SEP/src
+Using learned interaction net decoder.
+Using factor graph MLP encoder.
+DataParallel(
+  (module): MLPEncoder(
+    (mlp1): MLP(
+      (fc1): Linear(in_features=288, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp2): MLP(
+      (fc1): Linear(in_features=512, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp3): MLP(
+      (fc1): Linear(in_features=256, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (mlp4): MLP(
+      (fc1): Linear(in_features=768, out_features=256, bias=True)
+      (fc2): Linear(in_features=256, out_features=256, bias=True)
+      (bn): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (fc_out): Linear(in_features=256, out_features=2, bias=True)
+  )
+)
+DataParallel(
+  (module): MLPDecoder(
+    (msg_fc1): ModuleList(
+      (0-1): 2 x Linear(in_features=2, out_features=256, bias=True)
+    )
+    (msg_fc2): ModuleList(
+      (0-1): 2 x Linear(in_features=256, out_features=256, bias=True)
+    )
+    (out_fc1): Linear(in_features=257, out_features=256, bias=True)
+    (out_fc2): Linear(in_features=256, out_features=256, bias=True)
+    (out_fc3): Linear(in_features=256, out_features=1, bias=True)
+  )
+)
+Starting epoch  0
+/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/linear.py:125: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:179.)
+  return F.linear(input, self.weight, self.bias)
+0 train	 	loss_kl -3.1874722304 	loss_nll 1288773853659566.5000000000 	loss_mse 4490501.0581860263 	loss 1288773853659566.5000000000 	inference time 1.6634010247 	time: 315.0897s 	
+Starting epoch  1
+1 train	 	loss_kl -3.2134474356 	loss_nll 98038501677.1142883301 	loss_mse 341.5975607061 	loss 98038501677.1142883301 	inference time 1.5444032771 	time: 297.1784s 	
+Starting epoch  2
+2 train	 	loss_kl -3.3038264329 	loss_nll 93791816489.1964263916 	loss_mse 326.8007381302 	loss 93791816489.1964263916 	inference time 1.5332198739 	time: 295.7700s 	
+Starting epoch  3
+3 train	 	loss_kl -3.1846677562 	loss_nll 61004534336.2562484741 	loss_mse 212.5593478125 	loss 61004534336.2553558350 	inference time 1.5240650841 	time: 294.5143s 	
+Starting epoch  4
+4 train	 	loss_kl -3.1991139105 	loss_nll 73790180180.8857116699 	loss_mse 257.1086449947 	loss 73790180180.8857116699 	inference time 1.5116234762 	time: 293.0787s 	
+Starting epoch  5
+5 train	 	loss_kl -3.2261840667 	loss_nll 47153518655.8857116699 	loss_mse 164.2979764871 	loss 47153518655.8857116699 	inference time 1.5211594462 	time: 294.3310s 	
+Starting epoch  6
+6 train	 	loss_kl -3.2326839238 	loss_nll 78959085015.9142913818 	loss_mse 275.1187503328 	loss 78959085015.9142913818 	inference time 1.5142459903 	time: 293.2382s 	
+Starting epoch  7
+7 train	 	loss_kl -3.2979546040 	loss_nll 26992402638.1714286804 	loss_mse 94.0501800308 	loss 26992402638.1714286804 	inference time 1.5214955330 	time: 294.0945s 	
+Starting epoch  8
+8 train	 	loss_kl -3.2462972526 	loss_nll 52010701630.5535736084 	loss_mse 181.2219550403 	loss 52010701630.5500030518 	inference time 1.5140809706 	time: 293.2136s 	
+Starting epoch  9
+9 train	 	loss_kl -3.2790459470 	loss_nll 53128627070.1732177734 	loss_mse 185.1171726319 	loss 53128627070.1714248657 	inference time 1.5136391503 	time: 292.9465s 	
+Starting epoch  10
+10 train	 	loss_kl -3.2854306338 	loss_nll 71231497713.2410736084 	loss_mse 248.1933900553 	loss 71231497713.2375030518 	inference time 1.5213429536 	time: 294.4135s 	
+Starting epoch  11
+11 train	 	loss_kl -3.2771179476 	loss_nll 53593029741.7714309692 	loss_mse 186.7352866736 	loss 53593029741.7714309692 	inference time 1.5160044994 	time: 294.6259s 	
+Starting epoch  12
+12 train	 	loss_kl -3.2471865443 	loss_nll 21993159251.2000007629 	loss_mse 76.6312131807 	loss 21993159251.2000007629 	inference time 1.5136241879 	time: 293.1743s 	
+Starting epoch  13
+13 train	 	loss_kl -3.2637174792 	loss_nll 16651534581.6250000000 	loss_mse 58.0192822154 	loss 16651534581.6214294434 	inference time 1.5173902120 	time: 293.7922s 	
+Starting epoch  14
+14 train	 	loss_kl -3.2950767721 	loss_nll 20326562588.5428581238 	loss_mse 70.8242582364 	loss 20326562588.5428581238 	inference time 1.5196331756 	time: 294.0242s 	
+Starting epoch  15
+15 train	 	loss_kl -3.2892842059 	loss_nll 24565119244.2392845154 	loss_mse 85.5927477369 	loss 24565119244.2357139587 	inference time 1.5205832822 	time: 293.9472s 	
+Starting epoch  16
+16 train	 	loss_kl -3.2514004169 	loss_nll 26723600799.0964279175 	loss_mse 93.1135891763 	loss 26723600799.0928573608 	inference time 1.5166623967 	time: 293.7104s 	
+Starting epoch  17
+17 train	 	loss_kl -3.2864591796 	loss_nll 14370971770.0000000000 	loss_mse 50.0730705101 	loss 14370971770.0000000000 	inference time 1.5221137302 	time: 294.4236s 	
+Starting epoch  18
+18 train	 	loss_kl -3.3004993743 	loss_nll 20296589516.5285720825 	loss_mse 70.7198181569 	loss 20296589516.5285720825 	inference time 1.5236787864 	time: 294.7489s 	
+Starting epoch  19
+19 train	 	loss_kl -3.2925032818 	loss_nll 12433452358.2999992371 	loss_mse 43.3221332875 	loss 12433452358.2964286804 	inference time 1.5175771458 	time: 293.8567s 	
+Starting epoch  20
+20 train	 	loss_kl -3.3096900638 	loss_nll 12561478024.4571437836 	loss_mse 43.7682143895 	loss 12561478024.4571437836 	inference time 1.5184252211 	time: 293.9357s 	
+Starting epoch  21
+21 train	 	loss_kl -3.2899529900 	loss_nll 10963521425.2455348969 	loss_mse 38.2004215469 	loss 10963521425.2428569794 	inference time 1.5131967085 	time: 293.0561s 	
+Starting epoch  22
+22 train	 	loss_kl -3.2892126839 	loss_nll 9389292349.3857135773 	loss_mse 32.7153027417 	loss 9389292349.3839282990 	inference time 1.5241329891 	time: 294.4117s 	
+Starting epoch  23
+23 train	 	loss_kl -3.2738146056 	loss_nll 15787156663.5714282990 	loss_mse 55.0075114327 	loss 15787156663.5714282990 	inference time 1.5254457048 	time: 294.9078s 	
+Starting epoch  24
+24 train	 	loss_kl -3.3202047750 	loss_nll 11639664846.7124996185 	loss_mse 40.5563221451 	loss 11639664846.7089290619 	inference time 1.5243812851 	time: 294.8486s 	
+Starting epoch  25
+25 train	 	loss_kl -3.3293701642 	loss_nll 11205559331.6250000000 	loss_mse 39.0437591033 	loss 11205559331.6214294434 	inference time 1.5190345151 	time: 293.8748s 	
+Starting epoch  26
+26 train	 	loss_kl -3.2842493119 	loss_nll 9173017257.8714294434 	loss_mse 31.9617310826 	loss 9173017257.8714294434 	inference time 1.5249683312 	time: 294.6626s 	
+Starting epoch  27
+27 train	 	loss_kl -3.2872872680 	loss_nll 11976650129.8571434021 	loss_mse 41.7304867136 	loss 11976650129.8571434021 	inference time 1.5244332075 	time: 294.6825s 	
+Starting epoch  28
+28 train	 	loss_kl -3.2794955984 	loss_nll 12655446052.8142852783 	loss_mse 44.0956263713 	loss 12655446052.8142852783 	inference time 1.5133472971 	time: 293.2691s 	
+Starting epoch  29
+29 train	 	loss_kl -3.2586794772 	loss_nll 7960986465.5142860413 	loss_mse 27.7386275345 	loss 7960986465.5107145309 	inference time 1.5228435448 	time: 294.5758s 	
+Starting epoch  30
+30 train	 	loss_kl -3.2937000815 	loss_nll 8119775998.3374996185 	loss_mse 28.2919012117 	loss 8119775998.3348217010 	inference time 1.5193400042 	time: 294.1023s 	
+Starting epoch  31
+31 train	 	loss_kl -3.2752865891 	loss_nll 9448754346.5357151031 	loss_mse 32.9224873331 	loss 9448754346.5357151031 	inference time 1.5213617785 	time: 294.0602s 	
+Starting epoch  32
+32 train	 	loss_kl -3.2792948825 	loss_nll 9975307706.7321434021 	loss_mse 34.7571691197 	loss 9975307706.7285709381 	inference time 1.5186829209 	time: 294.2623s 	
+Starting epoch  33
+33 train	 	loss_kl -3.2821374436 	loss_nll 74873501765.8834838867 	loss_mse 260.8832611788 	loss 74873501765.8807983398 	inference time 1.5190266779 	time: 293.8411s 	
+Starting epoch  34
+34 train	 	loss_kl -3.2678433674 	loss_nll 10335735577.5482139587 	loss_mse 36.0130149932 	loss 10335735577.5446434021 	inference time 1.5177135876 	time: 293.7911s 	
+Starting epoch  35
+35 train	 	loss_kl -3.2760086647 	loss_nll 7793344147.0285711288 	loss_mse 27.1545078488 	loss 7793344147.0285711288 	inference time 1.5283663358 	time: 295.2394s 	
+Starting epoch  36
+36 train	 	loss_kl -3.2702502193 	loss_nll 9383513639.9142856598 	loss_mse 32.6951680121 	loss 9383513639.9142856598 	inference time 1.5226395845 	time: 295.1506s 	
+Starting epoch  37
+37 train	 	loss_kl -3.2612966516 	loss_nll 8911243566.6285705566 	loss_mse 31.0496275012 	loss 8911243566.6214294434 	inference time 1.5212795189 	time: 295.4099s 	
+Starting epoch  38
+38 train	 	loss_kl -3.3260682400 	loss_nll 7135896362.6857147217 	loss_mse 24.8637495240 	loss 7135896362.6857147217 	inference time 1.5261130009 	time: 295.0607s 	
+Starting epoch  39
+39 train	 	loss_kl -3.2936080703 	loss_nll 7614531801.5142860413 	loss_mse 26.5314685330 	loss 7614531801.5142860413 	inference time 1.5233327849 	time: 294.4945s 	
+Starting epoch  40
+40 train	 	loss_kl -3.2741948824 	loss_nll 7215393904.9142856598 	loss_mse 25.1407440166 	loss 7215393904.9142856598 	inference time 1.5236106447 	time: 294.8096s 	
+Starting epoch  41
+41 train	 	loss_kl -3.2799056277 	loss_nll 8242169140.8571424484 	loss_mse 28.7183583062 	loss 8242169140.8571424484 	inference time 1.5180480225 	time: 294.1445s 	
+Starting epoch  42
+42 train	 	loss_kl -3.3076440522 	loss_nll 7941221715.5892858505 	loss_mse 27.6697609112 	loss 7941221715.5857143402 	inference time 1.5227059722 	time: 294.6002s 	
+Starting epoch  43
+43 train	 	loss_kl -3.3085319285 	loss_nll 8178763666.5321426392 	loss_mse 28.4974328168 	loss 8178763666.5285711288 	inference time 1.5268022094 	time: 295.2082s 	
+Starting epoch  44
+44 train	 	loss_kl -3.3000004604 	loss_nll 7317391686.8857145309 	loss_mse 25.4961376563 	loss 7317391686.8857145309 	inference time 1.5249640346 	time: 294.6158s 	
+Starting epoch  45
+45 train	 	loss_kl -3.2737503646 	loss_nll 9087889573.2267856598 	loss_mse 31.6651189449 	loss 9087889573.2250003815 	inference time 1.5235620686 	time: 294.3326s 	
+Starting epoch  46
+46 train	 	loss_kl -3.2725155075 	loss_nll 7052796509.1785717010 	loss_mse 24.5742027497 	loss 7052796509.1750001907 	inference time 1.5285489236 	time: 295.0626s 	
+Starting epoch  47
+47 train	 	loss_kl -3.2700091947 	loss_nll 10177271579.8999996185 	loss_mse 35.4608756007 	loss 10177271579.8964290619 	inference time 1.5251270669 	time: 294.8864s 	
+Starting epoch  48
+48 train	 	loss_kl -3.2979177422 	loss_nll 7389379989.4750003815 	loss_mse 25.7469678328 	loss 7389379989.4714288712 	inference time 1.5181388770 	time: 293.6696s 	
+Starting epoch  49
+49 train	 	loss_kl -3.3024862417 	loss_nll 6871190126.2642860413 	loss_mse 23.9414277954 	loss 6871190126.2607145309 	inference time 1.5249218975 	time: 294.5789s 	
+Starting epoch  50
+50 train	 	loss_kl -3.2946904721 	loss_nll 7382056631.1999998093 	loss_mse 25.7214506115 	loss 7382056631.1999998093 	inference time 1.5226020268 	time: 294.2884s 	
+Starting epoch  51
+51 train	 	loss_kl -3.2790870366 	loss_nll 7267238425.4857139587 	loss_mse 25.3213870672 	loss 7267238425.4857139587 	inference time 1.5279238650 	time: 295.1061s 	
+Starting epoch  52
+52 train	 	loss_kl -3.2949732244 	loss_nll 7478701011.2857141495 	loss_mse 26.0581906433 	loss 7478701011.2857141495 	inference time 1.5263046741 	time: 294.7858s 	
+Starting epoch  53
+53 train	 	loss_kl -3.3089620641 	loss_nll 7507775938.7196426392 	loss_mse 26.1594968494 	loss 7507775938.7160711288 	inference time 1.5232966253 	time: 294.6057s 	
+Starting epoch  54
+54 train	 	loss_kl -3.2909711048 	loss_nll 7164229441.0357141495 	loss_mse 24.9624709445 	loss 7164229441.0357141495 	inference time 1.5312685966 	time: 295.3945s 	
+Starting epoch  55
+55 train	 	loss_kl -3.2978958656 	loss_nll 6856912566.5517854691 	loss_mse 23.8916801949 	loss 6856912566.5482139587 	inference time 1.5297040173 	time: 295.5593s 	
+Starting epoch  56
+56 train	 	loss_kl -3.2833427033 	loss_nll 6736534268.4285717010 	loss_mse 23.4722439169 	loss 6736534268.4285717010 	inference time 1.5210506797 	time: 294.1878s 	
+Starting epoch  57
+57 train	 	loss_kl -3.2736384181 	loss_nll 6946941174.8999996185 	loss_mse 24.2053687559 	loss 6946941174.8999996185 	inference time 1.5225560222 	time: 294.1959s 	
+Starting epoch  58
+58 train	 	loss_kl -3.2576385788 	loss_nll 6241268254.8482141495 	loss_mse 21.7465783015 	loss 6241268254.8464288712 	inference time 1.5213011793 	time: 294.3422s 	
+Starting epoch  59
+59 train	 	loss_kl -3.2580569810 	loss_nll 6880429537.4142856598 	loss_mse 23.9736209385 	loss 6880429537.4142856598 	inference time 1.5187305876 	time: 293.6102s 	
+Starting epoch  60
+60 train	 	loss_kl -3.2674360156 	loss_nll 6702777818.4071426392 	loss_mse 23.3546255847 	loss 6702777818.4071426392 	inference time 1.5267100317 	time: 295.0446s 	
+Starting epoch  61
+61 train	 	loss_kl -3.2792966142 	loss_nll 7692911310.9357147217 	loss_mse 26.8045674857 	loss 7692911310.9321432114 	inference time 1.5267715420 	time: 294.7594s 	
+Starting epoch  62
+62 train	 	loss_kl -3.2767479339 	loss_nll 8995352236.4357147217 	loss_mse 31.3426898211 	loss 8995352236.4321422577 	inference time 1.5215678709 	time: 294.1776s 	
+Starting epoch  63
+63 train	 	loss_kl -3.3118869856 	loss_nll 8778134996.1946430206 	loss_mse 30.5858343718 	loss 8778134996.1910705566 	inference time 1.5251716818 	time: 294.5306s 	
+Starting epoch  64
+64 train	 	loss_kl -3.3034414228 	loss_nll 7016467233.7357139587 	loss_mse 24.4476199642 	loss 7016467233.7285718918 	inference time 1.5285780140 	time: 295.0727s 	
+Starting epoch  65
+65 train	 	loss_kl -3.3291034498 	loss_nll 10478110490.8026790619 	loss_mse 36.5090930167 	loss 10478110490.7991065979 	inference time 1.5167866366 	time: 293.5710s 	
+Starting epoch  66
+66 train	 	loss_kl -3.3669478182 	loss_nll 26745768069.4241065979 	loss_mse 93.1908348418 	loss 26745768069.4205360413 	inference time 1.5253485015 	time: 294.8410s 	
+Starting epoch  67
+67 train	 	loss_kl -3.3410374786 	loss_nll 13711527626.2571430206 	loss_mse 47.7753554843 	loss 13711527626.2571430206 	inference time 1.5215130006 	time: 294.3517s 	
+Starting epoch  68
+68 train	 	loss_kl -3.3381756425 	loss_nll 7829785489.8714284897 	loss_mse 27.2814817050 	loss 7829785489.8714284897 	inference time 1.5231808577 	time: 294.4653s 	
+Starting epoch  69
+69 train	 	loss_kl -3.3319039079 	loss_nll 7545450445.0857143402 	loss_mse 26.2907671125 	loss 7545450445.0821428299 	inference time 1.5244324463 	time: 294.8186s 	
+Starting epoch  70
+70 train	 	loss_kl -3.3416642892 	loss_nll 7323532069.7928571701 	loss_mse 25.5175322259 	loss 7323532069.7928571701 	inference time 1.5272645967 	time: 295.2121s 	
+Starting epoch  71
+71 train	 	loss_kl -3.3380976892 	loss_nll 8297395992.4571428299 	loss_mse 28.9107867582 	loss 8297395992.4571428299 	inference time 1.5260817971 	time: 294.9384s 	
+Starting epoch  72
+72 train	 	loss_kl -3.3295967807 	loss_nll 6195225073.9857139587 	loss_mse 21.5861494017 	loss 6195225073.9857139587 	inference time 1.5255606822 	time: 295.1761s 	
+Starting epoch  73
+73 train	 	loss_kl -3.3479160854 	loss_nll 8896550641.1535720825 	loss_mse 30.9984336700 	loss 8896550641.1499996185 	inference time 1.5205391220 	time: 294.1297s 	
+Starting epoch  74
+74 train	 	loss_kl -3.3383261653 	loss_nll 7740067038.2571430206 	loss_mse 26.9688740476 	loss 7740067038.2571430206 	inference time 1.5207812888 	time: 294.0880s 	
+Starting epoch  75
+75 train	 	loss_kl -3.3307035740 	loss_nll 7675253691.6285715103 	loss_mse 26.7430431748 	loss 7675253691.6285715103 	inference time 1.5211545195 	time: 294.3216s 	
+Starting epoch  76
+76 train	 	loss_kl -3.3412993129 	loss_nll 28231234477.3410720825 	loss_mse 98.3666693561 	loss 28231234477.3375015259 	inference time 1.5206342084 	time: 293.9359s 	
+Starting epoch  77
+77 train	 	loss_kl -3.3175481515 	loss_nll 6753580476.8000001907 	loss_mse 23.5316380359 	loss 6753580476.7964286804 	inference time 1.5203225340 	time: 294.2197s 	
+Starting epoch  78
+78 train	 	loss_kl -3.3021254825 	loss_nll 8272472346.1267852783 	loss_mse 28.8239450252 	loss 8272472346.1232147217 	inference time 1.5273843152 	time: 294.9705s 	
+Starting epoch  79
+79 train	 	loss_kl -3.3417929579 	loss_nll 6604316654.2017860413 	loss_mse 23.0115553894 	loss 6604316654.1991071701 	inference time 1.5292540601 	time: 295.1795s 	
+Starting epoch  80
+80 train	 	loss_kl -3.2864689603 	loss_nll 6366696791.5214281082 	loss_mse 22.1836115704 	loss 6366696791.5214281082 	inference time 1.5253079755 	time: 294.7148s 	
+Starting epoch  81
+81 train	 	loss_kl -3.3506579518 	loss_nll 87592163168.5714263916 	loss_mse 305.1991263896 	loss 87592163168.5714263916 	inference time 1.5351490021 	time: 295.9253s 	
+Starting epoch  82
+82 train	 	loss_kl -3.3225352573 	loss_nll 16439505974.2714290619 	loss_mse 57.2805071276 	loss 16439505974.2714290619 	inference time 1.5269883565 	time: 294.9738s 	
+Starting epoch  83
+83 train	 	loss_kl -3.3364643361 	loss_nll 10745549505.8571434021 	loss_mse 37.4409361809 	loss 10745549505.8571434021 	inference time 1.5234814218 	time: 294.6497s 	
+Starting epoch  84
+84 train	 	loss_kl -3.3436985897 	loss_nll 7995467381.0142860413 	loss_mse 27.8587699937 	loss 7995467381.0107145309 	inference time 1.5251328213 	time: 294.7997s 	
+Starting epoch  85
+85 train	 	loss_kl -3.3040881668 	loss_nll 10640044933.0589294434 	loss_mse 37.0733261054 	loss 10640044933.0553569794 	inference time 1.5230859535 	time: 294.4770s 	
+Starting epoch  86
+86 train	 	loss_kl -3.3126482442 	loss_nll 7860749893.1517858505 	loss_mse 27.3893716795 	loss 7860749893.1482143402 	inference time 1.5283231871 	time: 295.2039s 	
+Starting epoch  87
+87 train	 	loss_kl -3.3120873766 	loss_nll 192725237821.0428466797 	loss_mse 671.5165731418 	loss 192725237821.0428466797 	inference time 1.5245433160 	time: 294.9223s 	
+Starting epoch  88
+88 train	 	loss_kl -3.3088386580 	loss_nll 76456756120.8571472168 	loss_mse 266.3998485250 	loss 76456756120.8571472168 	inference time 1.5152486137 	time: 293.5648s 	
+Starting epoch  89
+89 train	 	loss_kl -3.2957369751 	loss_nll 83029808509.7142791748 	loss_mse 289.3024783294 	loss 83029808509.7142791748 	inference time 1.5296334999 	time: 295.7079s 	
+Starting epoch  90
+90 train	 	loss_kl -3.2775164508 	loss_nll 8073629093.6678571701 	loss_mse 28.1311107208 	loss 8073629093.6642856598 	inference time 1.5332819598 	time: 296.0724s 	
+Starting epoch  91
+91 train	 	loss_kl -3.2941726127 	loss_nll 11728655303.6000003815 	loss_mse 40.8663934606 	loss 11728655303.6000003815 	inference time 1.5244665725 	time: 294.7119s 	
+Starting epoch  92
+92 train	 	loss_kl -3.2916646195 	loss_nll 49585956847.4678573608 	loss_mse 172.7733570436 	loss 49585956847.4660720825 	inference time 1.5228756513 	time: 295.7624s 	
+Starting epoch  93
+93 train	 	loss_kl -3.3314827176 	loss_nll 15610304059.1428565979 	loss_mse 54.3912983260 	loss 15610304059.1392860413 	inference time 1.5277345964 	time: 295.1674s 	
+Starting epoch  94
+94 train	 	loss_kl -3.3438858837 	loss_nll 19151955521.0000000000 	loss_mse 66.7315515401 	loss 19151955521.0000000000 	inference time 1.5276315689 	time: 295.3501s 	
+Starting epoch  95
+95 train	 	loss_kl -3.3527291260 	loss_nll 12159059650.9517860413 	loss_mse 42.3660597553 	loss 12159059650.9482135773 	inference time 1.5290013824 	time: 295.6113s 	
+Starting epoch  96
+96 train	 	loss_kl -3.3665648388 	loss_nll 11563646371.6857147217 	loss_mse 40.2914485957 	loss 11563646371.6857147217 	inference time 1.5248269711 	time: 294.8086s 	
+Starting epoch  97
+97 train	 	loss_kl -3.3174471508 	loss_nll 7317613873.1428575516 	loss_mse 25.4969115960 	loss 7317613873.1428575516 	inference time 1.5280281407 	time: 295.3189s 	
+Starting epoch  98
+98 train	 	loss_kl -3.3194503101 	loss_nll 8761612884.9642848969 	loss_mse 30.5282671030 	loss 8761612884.9607143402 	inference time 1.5262873650 	time: 295.0240s 	
+Starting epoch  99
+/opt/venvs/nathan/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3860: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/opt/venvs/nathan/lib/python3.12/site-packages/numpy/_core/_methods.py:144: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+99 train	 	loss_kl -3.3364111839 	loss_nll 31335938955.7892875671 	loss_mse 109.1844444318 	loss 31335938955.7874984741 	inference time 1.5204799754 	time: 294.1566s 	
+Saving model and log-file to logs/2026-03-30T14.07.13.612996
+Starting epoch  100
+100 train	 	loss_kl -3.3211210796 	loss_nll 9808787313.3428573608 	loss_mse 34.1769578612 	loss 9808787313.3428573608 	inference time 1.5263728516 	time: 294.8594s 	
+Starting epoch  101
+101 train	 	loss_kl -3.3738417921 	loss_nll 14687361593.8714294434 	loss_mse 51.1754732150 	loss 14687361593.8714294434 	inference time 1.5237840993 	time: 294.3521s 	
+Starting epoch  102
+102 train	 	loss_kl -3.3677142301 	loss_nll 11080000513.2214279175 	loss_mse 38.6062712199 	loss 11080000513.2142848969 	inference time 1.5257807749 	time: 294.9467s 	
+Starting epoch  103
+103 train	 	loss_kl -3.3349868791 	loss_nll 295317360459.2973022461 	loss_mse 1028.9803256756 	loss 295317360459.2928466797 	inference time 1.5308612483 	time: 295.5296s 	
+Starting epoch  104
+104 train	 	loss_kl -3.3382358287 	loss_nll 355893490117.4017944336 	loss_mse 1240.0468797659 	loss 355893490117.3981933594 	inference time 1.5295701419 	time: 295.3132s 	
+Starting epoch  105
+105 train	 	loss_kl -3.3751144899 	loss_nll 98706505681.3232116699 	loss_mse 343.9250925834 	loss 98706505681.3187561035 	inference time 1.5270437581 	time: 294.9613s 	
+Starting epoch  106
+106 train	 	loss_kl -3.3665097965 	loss_nll 6855198239827.3574218750 	loss_mse 23885.7109203923 	loss 6855198239827.3535156250 	inference time 1.5252240351 	time: 294.6874s 	
+Starting epoch  107
+107 train	 	loss_kl -3.3557796585 	loss_nll 1597710066852.3857421875 	loss_mse 5566.9335384927 	loss 1597710066852.3786621094 	inference time 1.5295212643 	time: 295.7296s 	
+Starting epoch  108
+108 train	 	loss_kl -3.3713005504 	loss_nll 75687966890.2607116699 	loss_mse 263.7211484817 	loss 75687966890.2571411133 	inference time 1.5268595661 	time: 294.8921s 	
+Starting epoch  109
+109 train	 	loss_kl -3.3618799821 	loss_nll 13675635552706.6718750000 	loss_mse 47650.2978738279 	loss 13675635552706.6679687500 	inference time 1.5250459177 	time: 294.7412s 	
+Starting epoch  110
+110 train	 	loss_kl -3.3168733678 	loss_nll 379596586305.5821533203 	loss_mse 1322.6361035017 	loss 379596586305.5750122070 	inference time 1.5275791321 	time: 295.5501s 	
+Starting epoch  111
+111 train	 	loss_kl -3.3374899430 	loss_nll 200094395567.8544616699 	loss_mse 697.1930153211 	loss 200094395567.8500061035 	inference time 1.5304961835 	time: 295.7060s 	
+Starting epoch  112
+112 train	 	loss_kl -3.2849200385 	loss_nll 48325443122.0553588867 	loss_mse 168.3813236988 	loss 48325443122.0517883301 	inference time 1.5266983816 	time: 294.9146s 	
+Starting epoch  113
+113 train	 	loss_kl -3.2720419083 	loss_nll 14890568914.1142864227 	loss_mse 51.8835141646 	loss 14890568914.1142864227 	inference time 1.5336807438 	time: 296.0090s 	
+Starting epoch  114
+114 train	 	loss_kl -3.2351075409 	loss_nll 25206478062.9428558350 	loss_mse 87.8274442731 	loss 25206478062.9410705566 	inference time 1.5356117300 	time: 296.4089s 	
+Starting epoch  115
+115 train	 	loss_kl -3.2452077804 	loss_nll 20865540357.7857131958 	loss_mse 72.7022303136 	loss 20865540357.7857131958 	inference time 1.5269499081 	time: 294.9086s 	
+Starting epoch  116
+116 train	 	loss_kl -3.2598017114 	loss_nll 37611355905.3428573608 	loss_mse 131.0500175023 	loss 37611355905.3428573608 	inference time 1.5336532269 	time: 295.7699s 	
+Starting epoch  117
+117 train	 	loss_kl -3.2424653707 	loss_nll 8421115684879.9423828125 	loss_mse 29341.8655755989 	loss 8421115684879.9423828125 	inference time 1.5292565806 	time: 295.3178s 	
+Starting epoch  118
+118 train	 	loss_kl -3.2294734512 	loss_nll 122032820899591.9687500000 	loss_mse 425201.4459228144 	loss 122032820899591.9687500000 	inference time 1.5325969509 	time: 295.7843s 	
+Starting epoch  119
+119 train	 	loss_kl -3.2312217972 	loss_nll 28715549961.0785713196 	loss_mse 100.0541725868 	loss 28715549961.0785713196 	inference time 1.5322891423 	time: 296.0638s 	
+Starting epoch  120
+120 train	 	loss_kl -3.2373290283 	loss_nll 182138084665.6571350098 	loss_mse 634.6274831527 	loss 182138084665.6571350098 	inference time 1.5276765891 	time: 295.0069s 	
+Starting epoch  121
+121 train	 	loss_kl -3.2548030204 	loss_nll 14207727572403.2480468750 	loss_mse 49504.2748555043 	loss 14207727572403.2460937500 	inference time 1.5272379994 	time: 294.9870s 	
+Starting epoch  122
+122 train	 	loss_kl -3.2275653592 	loss_nll 6033588011045.1533203125 	loss_mse 21022.9535463398 	loss 6033588011045.1503906250 	inference time 1.5248633555 	time: 294.7477s 	
+Starting epoch  123
+123 train	 	loss_kl -3.2299012342 	loss_nll 903101408884.5142822266 	loss_mse 3146.6947784222 	loss 903101408884.5142822266 	inference time 1.5267342721 	time: 295.1489s 	
+Starting epoch  124
+124 train	 	loss_kl -3.2383531577 	loss_nll 4119327225976.4731445312 	loss_mse 14353.0564346779 	loss 4119327225976.4707031250 	inference time 1.5269233005 	time: 295.1945s 	
+Starting epoch  125
+125 train	 	loss_kl -3.2354748556 	loss_nll 30371670010435.7695312500 	loss_mse 105824.6220486309 	loss 30371670010435.7695312500 	inference time 1.5268600311 	time: 295.0824s 	
+Starting epoch  126
+126 train	 	loss_kl -3.2284596445 	loss_nll 5068032708745.3857421875 	loss_mse 17658.6498984342 	loss 5068032708745.3857421875 	inference time 1.5299535956 	time: 295.7259s 	
+Starting epoch  127
+127 train	 	loss_kl -3.2462865957 	loss_nll 12241302624.7169647217 	loss_mse 42.6526203379 	loss 12241302624.7151794434 	inference time 1.5282936658 	time: 295.5863s 	
+Starting epoch  128
+128 train	 	loss_kl -3.2377344351 	loss_nll 148671966161.9526672363 	loss_mse 518.0207264087 	loss 148671966161.9508972168 	inference time 1.5283444354 	time: 295.4941s 	
+Starting epoch  129
+129 train	 	loss_kl -3.2431020028 	loss_nll 29770500196.3142852783 	loss_mse 103.7299619929 	loss 29770500196.3142852783 	inference time 1.5246707337 	time: 295.0343s 	
+Starting epoch  130
+130 train	 	loss_kl -3.2403665809 	loss_nll 14948362982.3999996185 	loss_mse 52.0848854664 	loss 14948362982.3999996185 	inference time 1.5282298480 	time: 294.8769s 	
+Starting epoch  131
+131 train	 	loss_kl -3.2393301400 	loss_nll 448258227957.7714233398 	loss_mse 1561.8752614207 	loss 448258227957.7714233398 	inference time 1.5336959856 	time: 295.7672s 	
+Starting epoch  132
+132 train	 	loss_kl -3.2523247902 	loss_nll 9255855492927.0351562500 	loss_mse 32250.3661280512 	loss 9255855492927.0312500000 	inference time 1.5311125006 	time: 295.6737s 	
+Starting epoch  133
+133 train	 	loss_kl -3.2541966860 	loss_nll 244295024225.5625000000 	loss_mse 851.2020633582 	loss 244295024225.5589294434 	inference time 1.5306216461 	time: 295.9079s 	
+Starting epoch  134
+134 train	 	loss_kl -3.2923699275 	loss_nll 92743010420.9714355469 	loss_mse 323.1463591790 	loss 92743010420.9714355469 	inference time 1.5335077814 	time: 296.0718s 	
+Starting epoch  135
+135 train	 	loss_kl -3.3059441505 	loss_nll 23686649493.7531242371 	loss_mse 82.5318771536 	loss 23686649493.7500000000 	inference time 1.5339023743 	time: 296.1731s 	
+Starting epoch  136
+136 train	 	loss_kl -3.2956175781 	loss_nll 14389039658.6285705566 	loss_mse 50.1360256861 	loss 14389039658.6285705566 	inference time 1.5338864888 	time: 296.0157s 	
+Starting epoch  137
+137 train	 	loss_kl -3.2872024866 	loss_nll 71550682656.4571380615 	loss_mse 249.3055348750 	loss 71550682656.4571380615 	inference time 1.5320133362 	time: 295.7713s 	
+Starting epoch  138
+138 train	 	loss_kl -3.2511472444 	loss_nll 30025524799.3285713196 	loss_mse 104.6185492393 	loss 30025524799.3250007629 	inference time 1.5307096004 	time: 295.2927s 	
+Starting epoch  139
+139 train	 	loss_kl -3.2411641983 	loss_nll 13359335818.1892852783 	loss_mse 46.5482073365 	loss 13359335818.1875000000 	inference time 1.5279024465 	time: 295.6923s 	
+Starting epoch  140
+140 train	 	loss_kl -3.2525022852 	loss_nll 13309040144.3285713196 	loss_mse 46.3729598006 	loss 13309040144.3285713196 	inference time 1.5381266185 	time: 296.4225s 	
+Starting epoch  141
+141 train	 	loss_kl -3.2409185934 	loss_nll 25486450305.4000015259 	loss_mse 88.8029570887 	loss 25486450305.4000015259 	inference time 1.5330321687 	time: 295.7608s 	
+Starting epoch  142
+142 train	 	loss_kl -3.2399148294 	loss_nll 10742132900.3999996185 	loss_mse 37.4290329143 	loss 10742132900.3999996185 	inference time 1.5337262392 	time: 296.1937s 	
+Starting epoch  143
+143 train	 	loss_kl -3.2416256844 	loss_nll 13350878941.6928577423 	loss_mse 46.5187403487 	loss 13350878941.6928577423 	inference time 1.5376870598 	time: 296.4724s 	
+Starting epoch  144
+144 train	 	loss_kl -3.2394655296 	loss_nll 17499971554.2857131958 	loss_mse 60.9755100000 	loss 17499971554.2857131958 	inference time 1.5319107277 	time: 295.7186s 	
+Starting epoch  145
+145 train	 	loss_kl -3.2497950302 	loss_nll 24775114637.3142852783 	loss_mse 86.3244371948 	loss 24775114637.3142852783 	inference time 1.5328618765 	time: 295.8129s 	
+Starting epoch  146
+146 train	 	loss_kl -3.2428616786 	loss_nll 12703543076.0571422577 	loss_mse 44.2632136436 	loss 12703543076.0571422577 	inference time 1.5341814143 	time: 295.9010s 	
+Starting epoch  147
+147 train	 	loss_kl -3.2516878824 	loss_nll 11427404730.1660709381 	loss_mse 39.8167384557 	loss 11427404730.1642856598 	inference time 1.5347686682 	time: 295.9110s 	
+Starting epoch  148
+148 train	 	loss_kl -3.2602426795 	loss_nll 137982978526.0410766602 	loss_mse 480.7768889225 	loss 137982978526.0392761230 	inference time 1.5358394078 	time: 296.0441s 	
+Starting epoch  149
+149 train	 	loss_kl -3.2515020296 	loss_nll 580908865755.5072021484 	loss_mse 2024.0726446223 	loss 580908865755.5072021484 	inference time 1.5335146104 	time: 295.7560s 	
+Starting epoch  150
+150 train	 	loss_kl -3.2769379341 	loss_nll 758654029654.5660400391 	loss_mse 2643.3938810002 	loss 758654029654.5625000000 	inference time 1.5311498863 	time: 295.6147s 	
+Starting epoch  151
+151 train	 	loss_kl -3.2764775779 	loss_nll 356484293669.6464233398 	loss_mse 1242.1054992316 	loss 356484293669.6428833008 	inference time 1.5350023253 	time: 296.2520s 	
+Starting epoch  152
+152 train	 	loss_kl -3.2568212890 	loss_nll 9263028608736.1796875000 	loss_mse 32275.3567147343 	loss 9263028608736.1777343750 	inference time 1.5427202293 	time: 297.2010s 	
+Starting epoch  153
+153 train	 	loss_kl -3.2304722673 	loss_nll 1254319385108.7607421875 	loss_mse 4370.4504339505 	loss 1254319385108.7570800781 	inference time 1.5357934645 	time: 296.6824s 	
+Starting epoch  154
+154 train	 	loss_kl -3.2362524695 	loss_nll 121470407829.6991119385 	loss_mse 423.2418329581 	loss 121470407829.6964263916 	inference time 1.5254730667 	time: 294.7532s 	
+Starting epoch  155
+155 train	 	loss_kl -3.2435642421 	loss_nll 3896330192536.0356445312 	loss_mse 13576.0632397315 	loss 3896330192536.0356445312 	inference time 1.5316475238 	time: 295.7191s 	
+Starting epoch  156
+156 train	 	loss_kl -3.2579226430 	loss_nll 264752180354.9428710938 	loss_mse 922.4814306739 	loss 264752180354.9393005371 	inference time 1.5323221649 	time: 295.9165s 	
+Starting epoch  157
+157 train	 	loss_kl -3.2500751817 	loss_nll 35476536030269.5156250000 	loss_mse 123611.6080756949 	loss 35476536030269.5156250000 	inference time 1.5334660615 	time: 295.9209s 	
+Starting epoch  158
+/opt/venvs/nathan/lib/python3.12/site-packages/torch/autograd/graph.py:829: UserWarning: Error detected in AddmmBackward0. Traceback of forward call that caused the error:
+  File "/usr/lib/python3.12/threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.12/threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/parallel/parallel_apply.py", line 99, in _worker
+    output = module(*input, **kwargs)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nathan/prod/acd/AmortizedCausalDiscovery/codebase/model/MLPDecoder.py", line 117, in forward
+    last_pred = self.single_step_forward(
+  File "/home/nathan/prod/acd/AmortizedCausalDiscovery/codebase/model/MLPDecoder.py", line 83, in single_step_forward
+    pred = self.out_fc3(pred)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1773, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1784, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+ (Triggered internally at /pytorch/torch/csrc/autograd/python_anomaly_mode.cpp:122.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/nathan/prod/acd/AmortizedCausalDiscovery/codebase/train.py", line 255, in <module>
+    best_epoch, epoch = train()
+                        ^^^^^^^
+  File "/home/nathan/prod/acd/AmortizedCausalDiscovery/codebase/train.py", line 52, in train
+    loss.backward()
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/_tensor.py", line 647, in backward
+    torch.autograd.backward(
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/opt/venvs/nathan/lib/python3.12/site-packages/torch/autograd/graph.py", line 829, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Function 'AddmmBackward0' returned nan values in its 2th output.
