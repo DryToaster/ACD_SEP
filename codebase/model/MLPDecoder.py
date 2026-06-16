@@ -87,6 +87,9 @@ class MLPDecoder(nn.Module):
 
     def forward(self, inputs, rel_type, rel_rec, rel_send, pred_steps=1):
         # NOTE: Assumes that we have the same graph across all samples.
+        if rel_rec.dim() == 3:
+            rel_rec = rel_rec.unsqueeze(1)
+            rel_send = rel_send.unsqueeze(1)
 
         inputs = inputs.transpose(1, 2).contiguous()
 

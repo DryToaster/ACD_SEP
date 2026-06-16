@@ -20,8 +20,22 @@ def load_data(args):
         train_loader, loc_max, loc_min = load_netsim_data(
             batch_size=args.batch_size_multiGPU, datadir=args.datadir
         )
+    elif "sep_bal" in args.suffix:
+
+        train_loader, loc_max, loc_min = load_sep_bal(
+            batch_size=args.batch_size_multiGPU, datadir=args.datadir
+        )
     elif "sep" in args.suffix:
-        train_loader, loc_max, loc_min = load_sep_data(
+        window = 24
+        if "6" in args.suffix:
+            window = 6
+        elif "12" in args.suffix:
+            window = 12
+        train_loader, loc_max, loc_min = load_sep(
+            batch_size=args.batch_size_multiGPU, datadir=args.datadir, window=window
+        )
+    elif "flare_trial" in args.suffix:
+        train_loader, loc_max, loc_min = load_flare_train_trial(
             batch_size=args.batch_size_multiGPU, datadir=args.datadir
         )
     elif "springs" in args.suffix:
@@ -346,7 +360,6 @@ def load_sep_data(batch_size=1, datadir="data"):
     edges_train = torch.reshape(edges_train, [-1, 5 ** 2])
     edges_train = (edges_train + 1) // 2
     edges_train = edges_train[:, off_diag_idx]
-    print(edges_train.shape)
     loc_max = loc_train.max()
     loc_min = loc_train.min()
 
@@ -358,6 +371,127 @@ def load_sep_data(batch_size=1, datadir="data"):
 
     return (train_data_loader, loc_max, loc_min)
 
+def load_sep_bal(batch_size=1, datadir="./data"):
+    print("Loading Data From {}".format(datadir))
+    dat = np.load(os.path.join(datadir, "X_mvts_balanced.npy"))
+    l = 95
+    v = 10
+    n = 288
+    dat = dat.reshape(l, n, v)
+    loc_train = torch.FloatTensor(dat)
+    loc_train = torch.transpose(loc_train, 1, 2)
+    loc_train = loc_train.unsqueeze(-1)
+    edges_train = torch.ones((l, 10, 10))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+    off_diag_idx = get_off_diag_idx(10)
+    edges_train = torch.reshape(edges_train, [-1, 10 ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
+    train_data = TensorDataset(loc_train, edges_train)
+    train_data_loader = DataLoader(
+        train_data, batch_size=batch_size, shuffle=True, num_workers=8
+    )
+
+    return (train_data_loader, loc_max, loc_min)
+
+def load_sep(batch_size=1, datadir="./data", window=24):
+    print("Loading Data From {}".format(datadir))
+    dat = np.load(os.path.join(datadir, "seplog.npy"))
+    l = 17794
+    v = 10
+    n = 288
+    if window==12:
+        n = 144
+        dat = dat[:, 144:, :]
+    elif window==6:
+        n = 72
+        dat = dat[:, 216:, :]
+    dat = dat.reshape(l, n, v)
+    loc_train = torch.FloatTensor(dat)
+    loc_train = torch.transpose(loc_train, 1, 2)
+    loc_train = loc_train.unsqueeze(-1)
+    edges_train = torch.ones((l, 10, 10))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+    off_diag_idx = get_off_diag_idx(10)
+    edges_train = torch.reshape(edges_train, [-1, 10 ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
+    train_data = TensorDataset(loc_train, edges_train)
+    train_data_loader = DataLoader(
+        train_data, batch_size=batch_size, shuffle=True, num_workers=8
+    )
+
+    return (train_data_loader, loc_max, loc_min)
+
+def load_flare_train_trial(batch_size=1, datadir="..//..//..//..//Cleaned_SWANSF_Dataset//train"):
+    import pickle
+    print("Loading Data From {}".format(datadir))
+    f = open("..//..//..//Cleaned_SWANSF_Dataset//train//Partition1_RUS-Tomek-TimeGAN_LSBZM-Norm_WithoutC_FPCKNN-impute.pkl", 'rb')
+    dat = pickle.load(f)
+    f.close()
+    l = 18773
+    loc_train = torch.FloatTensor(dat)
+    loc_train = torch.transpose(loc_train, 1, 2)
+    loc_train = loc_train.unsqueeze(-1)
+    edges_train = torch.ones((l, 24, 24))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+    
+    off_diag_idx = get_off_diag_idx(24)
+    edges_train = torch.reshape(edges_train, [-1, 24 ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
+    train_data = TensorDataset(loc_train, edges_train)
+
+    train_data_loader = DataLoader(
+        train_data, batch_size=batch_size, shuffle=True, num_workers=8
+    )
+
+    return (train_data_loader, loc_max, loc_min)
+
+def load_sep3_data(batch_size=1, datadir="data"):
+    from glob import glob
+    import pandas as pd
+    print("Loading data from {}".format(datadir))
+    sep = np.load("data//sep3//sep_data_3.npy")
+    nsep = np.load("data//sep3//non_sep_data_3.npy")
+    l = 96
+    loc_train = torch.zeros((l, 3, 60))
+    
+    loc_train = np.concatenate((sep, nsep), axis=0)
+    loc_train = torch.Tensor(loc_train)
+    loc_train = loc_train.unsqueeze(-1)
+
+    edges_train = torch.ones((l, 3, 3))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+    
+    off_diag_idx = get_off_diag_idx(3)
+    edges_train = torch.reshape(edges_train, [-1, 3 ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
+
+    train_data = TensorDataset(loc_train, edges_train)
+
+    train_data_loader = DataLoader(
+        train_data, batch_size=batch_size, shuffle=True, num_workers=8
+    )
+
+    return (train_data_loader, loc_max, loc_min)
 
 def unpack_batches(args, minibatch):
     if args.load_temperatures:
