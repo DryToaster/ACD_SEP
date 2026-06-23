@@ -38,6 +38,10 @@ def load_data(args):
         train_loader, loc_max, loc_min = load_flare_train_trial(
             batch_size=args.batch_size_multiGPU, datadir=args.datadir
         )
+    elif "flare_diff" in args.suffix:
+        train_loader, loc_max, loc_min = load_flare_diff(
+            batch_size=args.batch_size_multiGPU, datadir=args.datadir
+        )
     elif "springs" in args.suffix:
         (
             train_loader,
