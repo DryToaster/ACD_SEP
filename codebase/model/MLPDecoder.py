@@ -50,11 +50,20 @@ class MLPDecoder(nn.Module):
         pre_msg = torch.cat([senders, receivers], dim=-1)
 
         all_msgs = torch.zeros(
-            pre_msg.size(0), pre_msg.size(1), pre_msg.size(2), self.msg_out_shape
+            pre_msg.size(0), pre_msg.size(1), pre_msg.size(2), self.msg_out_shape,
+            device=pre_msg.device
         )
 
-        if single_timestep_inputs.is_cuda:
-            all_msgs = all_msgs.cuda()
+        # REMOVE these two lines entirely:
+        # if single_timestep_inputs.is_cuda:
+        #     all_msgs = all_msgs.cuda()
+
+# Replace `output` initialization inside `forward` (around line 96):
+        output = torch.zeros(sizes, device=inputs.device)
+
+        # REMOVE these two lines entirely:
+        # if inputs.is_cuda:
+        #     output = output.cuda()
 
         if self.skip_first_edge_type:
             start_idx = 1

@@ -101,8 +101,12 @@ def val(epoch):
     decoder.eval()
 
     for batch_idx, minibatch in enumerate(valid_loader):
-
         data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
+        
+        # ADD THESE THREE LINES:
+        current_batch_size = data.size(0)
+        rel_rec_bat = rel_rec.unsqueeze(0).expand(current_batch_size, -1, -1)
+        rel_send_bat = rel_send.unsqueeze(0).expand(current_batch_size, -1, -1)
 
         with torch.no_grad():
             losses, _, _, edges = forward_pass_and_eval.forward_pass_and_eval(
@@ -111,8 +115,8 @@ def val(epoch):
                 decoder,
                 data,
                 relations,
-                rel_rec,
-                rel_send,
+                rel_rec_bat, # UPDATE THIS from rel_rec
+                rel_send_bat, # UPDATE THIS from rel_send
                 True,
                 edge_probs=edge_probs,
                 log_prior=log_prior,
@@ -151,8 +155,12 @@ def test(encoder, decoder, epoch):
     decoder.eval()
 
     for batch_idx, minibatch in enumerate(test_loader):
-
         data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
+
+        # ADD THESE THREE LINES:
+        current_batch_size = data.size(0)
+        rel_rec_bat = rel_rec.unsqueeze(0).expand(current_batch_size, -1, -1)
+        rel_send_bat = rel_send.unsqueeze(0).expand(current_batch_size, -1, -1)
 
         with torch.no_grad():
             assert (data.size(2) - args.timesteps) >= args.timesteps
@@ -166,8 +174,8 @@ def test(encoder, decoder, epoch):
                 decoder,
                 data,
                 relations,
-                rel_rec,
-                rel_send,
+                rel_rec_bat, # UPDATE THIS from rel_rec
+                rel_send_bat, # UPDATE THIS from rel_send
                 True,
                 data_encoder=data_encoder,
                 data_decoder=data_decoder,
