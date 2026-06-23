@@ -24,10 +24,6 @@ def train():
         for batch_idx, minibatch in enumerate(train_loader):
 
             data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
-            #                                                                                                       DELETE ME
-            #print(data.shape)
-            #print(rel_rec.shape)
-            #print(rel_send.shape)
 
             optimizer.zero_grad()
 
