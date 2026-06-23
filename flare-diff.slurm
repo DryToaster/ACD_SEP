@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1                  # Run a single task
 #SBATCH --cpus-per-task=8           # Number of CPU cores requested
 #SBATCH --mem=48G                   # Request 48 GB of RAM
-#SBATCH --gres=gpu:1                # Request 1 NVIDIA GPU
+#SBATCH --gres=gpu:nvidia:1                # Request 1 NVIDIA GPU
 #SBATCH --time=48:00:00             # Max wall time (Hours:Minutes:Seconds)
 #SBATCH --output=/home/nate/flare-diff-out/slurm-%j.out # Standard output and error log
 
