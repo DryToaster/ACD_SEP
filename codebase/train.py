@@ -96,6 +96,8 @@ def val(epoch):
         encoder.eval()
     decoder.eval()
 
+    print(f"Validation Loader has {len(valid_loader)} batches.", flush=True)
+
     for batch_idx, minibatch in enumerate(valid_loader):
         data, relations, temperatures = data_loader.unpack_batches(args, minibatch)
         
