@@ -68,12 +68,16 @@ def train():
             val_loss = np.mean(val_losses["loss"])
             if val_loss < best_val_loss:
                 print("Best model so far, saving...")
+                
+                # Safely extract accuracy if it exists, otherwise default to 0.0
+                val_acc = np.mean(val_losses["acc"]) if "acc" in val_losses and len(val_losses["acc"]) > 0 else 0.0
+                
                 logs.create_log(
                     args,
                     encoder=encoder,
                     decoder=decoder,
                     optimizer=optimizer,
-                    accuracy=np.mean(val_losses["acc"]),
+                    accuracy=val_acc,
                 )
                 best_val_loss = val_loss
                 best_epoch = epoch
