@@ -269,7 +269,9 @@ def forward_pass_and_eval(
     losses["loss_mse"] = F.mse_loss(output, target)
 
     total_loss = losses["loss_nll"] + losses["loss_kl"]
+    print("Good here...")
     total_loss += args.teacher_forcing * losses["mse_unobserved"]
+    print("But here?")
     if args.global_temp:
         total_loss += losses['loss_kl_temp']
     losses["loss"] = total_loss
