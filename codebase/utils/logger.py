@@ -199,8 +199,8 @@ class Logger:
                 safe_value = [x.item() if torch.is_tensor(x) else x for x in value]
                 mean_val = np.mean(safe_value)
                 # Removed the != 0 check so exact zeros are properly logged
-                # if not math.isnan(mean_val):
-                #     string += loss + " {:.10f} \t".format(mean_val)
+                if not math.isnan(mean_val):
+                    string += loss + " {:.10f} \t".format(mean_val)
 
         if t is not None:
             string += "time: {:.4f}s \t".format(time.time() - t)
