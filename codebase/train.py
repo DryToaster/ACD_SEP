@@ -82,15 +82,18 @@ def train():
                 best_val_loss = val_loss
                 best_epoch = epoch
         elif (epoch + 1) % 100 == 0:
+            
+            # Safely extract accuracy if it exists, otherwise default to 0.0
+            train_acc = np.mean(train_losses["acc"]) if "acc" in train_losses and len(train_losses["acc"]) > 0 else 0.0
+            
             logs.create_log(
                 args,
                 encoder=encoder,
                 decoder=decoder,
                 optimizer=optimizer,
-                accuracy=np.mean(train_losses["acc"]),
+                accuracy=train_acc,
             )
 
-        logs.draw_loss_curves()
 
     return best_epoch, epoch
 
