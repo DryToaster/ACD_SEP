@@ -42,6 +42,10 @@ def load_data(args):
         train_loader, valid_loader, loc_max, loc_min = load_flare_diff(
             batch_size=args.batch_size_multiGPU, datadir=args.datadir
         )
+    elif "video" in args.suffix:
+        train_loader, valid_loader, loc_max, loc_min = load_video(
+            batch_size=args.batch_size_multiGPU, datadir=args.datadir
+        )
     elif "springs" in args.suffix:
         (
             train_loader,
@@ -77,7 +81,71 @@ def get_off_diag_idx(num_atoms):
         [num_atoms, num_atoms],
     )
 
+import os
+import numpy as np
+import torch
+from torch.utils.data import TensorDataset, DataLoader
 
+def get_off_diag_idx(num_nodes):
+    """Helper to generate indices for off-diagonal elements in a flattened matrix."""
+    ones = torch.ones(num_nodes, num_nodes)
+    ones.fill_diagonal_(0)
+    return ones.flatten().nonzero(as_tuple=False).squeeze()
+
+def load_video(batch_size=1, datadir="~/scratch/nate/video-data/"):
+    print("Loading Data From {}".format(datadir))
+    
+    num_features = 100  # 10x10 patches
+    
+    # --- 1. LOAD TRAINING DATA ---
+    train_path = os.path.join(datadir, "snow_decay_patches_2000.npy")
+    dat_train = np.load(train_path)
+    
+    l_train = dat_train.shape[0] 
+    loc_train = torch.FloatTensor(dat_train)
+    # Shapes from (N, 100_time, 100_features) -> (N, 100_features, 100_time, 1)
+    loc_train = torch.transpose(loc_train, 1, 2).unsqueeze(-1)
+    
+    edges_train = torch.ones((l_train, num_features, num_features))
+    for i in range(edges_train.shape[1]):
+        for j in range(edges_train.shape[0]):
+            edges_train[j][i][i] = 0
+            
+    off_diag_idx = get_off_diag_idx(num_features)
+    edges_train = torch.reshape(edges_train, [-1, num_features ** 2])
+    edges_train = (edges_train + 1) // 2
+    edges_train = edges_train[:, off_diag_idx]
+    
+    train_data = TensorDataset(loc_train, edges_train)
+    train_data_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=8)
+
+    # --- 2. LOAD VALIDATION DATA ---
+    valid_path = os.path.join(datadir, "other_decay_patches_100.npy") 
+    dat_valid = np.load(valid_path)
+    
+    l_valid = dat_valid.shape[0]
+    loc_valid = torch.FloatTensor(dat_valid)
+    loc_valid = torch.transpose(loc_valid, 1, 2).unsqueeze(-1)
+    
+    edges_valid = torch.ones((l_valid, num_features, num_features))
+    for i in range(edges_valid.shape[1]):
+        for j in range(edges_valid.shape[0]):
+            edges_valid[j][i][i] = 0
+            
+    edges_valid = torch.reshape(edges_valid, [-1, num_features ** 2])
+    edges_valid = (edges_valid + 1) // 2
+    edges_valid = edges_valid[:, off_diag_idx]
+    
+    valid_data = TensorDataset(loc_valid, edges_valid)
+    # Shuffle is usually False for validation sets
+    valid_data_loader = DataLoader(valid_data, batch_size=batch_size, shuffle=False, num_workers=8)
+
+    # --- 3. MIN/MAX ---
+    # Max/min should strictly be calculated on the train set to avoid data leakage
+    loc_max = loc_train.max()
+    loc_min = loc_train.min()
+
+    return (train_data_loader, valid_data_loader, loc_max, loc_min)
 def data_preparation(
     loc,
     vel,
@@ -404,7 +472,7 @@ def load_sep_bal(batch_size=1, datadir="./data"):
 
 def load_sep(batch_size=1, datadir="./data", window=24):
     print("Loading Data From {}".format(datadir))
-    dat = np.load(os.path.join(datadir, "seplog.npy"))
+    dat = np.load(os.path.join(datadir, "sep-mvts.npy"))
     l = 17794
     v = 10
     n = 288
@@ -470,7 +538,7 @@ def load_flare_diff(batch_size=1, datadir="..//..//..//..//Cleaned_SWANSF_Datase
     print("Loading Data From {}".format(datadir))
     
     # --- 1. LOAD TRAINING DATA ---
-    f_train = open(os.path.join(datadir, "train", "diff1.pkl"), 'rb')
+    f_train = open(os.path.join(datadir, "train", "diff4.pkl"), 'rb')
     dat_train = pickle.load(f_train)
     f_train.close()
     
@@ -493,7 +561,7 @@ def load_flare_diff(batch_size=1, datadir="..//..//..//..//Cleaned_SWANSF_Datase
 
     # --- 2. LOAD VALIDATION DATA ---
     # UPDATE THIS PATH to point to your validation pickle file
-    valid_path = os.path.join(datadir, "test", "diff2.pkl") 
+    valid_path = os.path.join(datadir, "test", "diff4.pkl") 
     f_valid = open(valid_path, 'rb')
     dat_valid = pickle.load(f_valid)
     f_valid.close()

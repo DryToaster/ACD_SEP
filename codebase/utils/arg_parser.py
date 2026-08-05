@@ -283,6 +283,13 @@ def parse_args():
         args.no_validate = True
         args.test = False
 
+    if "video" in args.suffix:
+        args.dims = 1
+        args.num_atoms = 100
+        args.timesteps = 100
+        args.no_validate = False
+        args.test = False
+
     if "sep_12" in args.suffix:
         args.dims = 1
         args.num_atoms = 10

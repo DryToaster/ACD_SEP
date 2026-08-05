@@ -17,7 +17,7 @@ target/
 
 # generated data
 data/*.npy
-
+data/*.npz
 ##own
 .idea/
 *.ckpt
@@ -27,3 +27,4 @@ logs/
 journal/
 Session.vim
 *.swo
+*.slurm
